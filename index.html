@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070a0d">
+  <meta name="description" content="Jumpster — Gaming video editor, specialist Mobile Legends. Editing with CapCut & Alight Motion.">
+  <title>JUMPSTER — Gaming Video Editor</title>
+  <style>
+    :root {
+      --bg: #070a0d;
+      --panel: #0d1217;
+      --panel2: #111920;
+      --text: #f3f8fa;
+      --muted: #91a2ac;
+      --cyan: #35f2e1;
+      --cyan2: #00b9c7;
+      --line: rgba(53,242,225,.19);
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background:
+        radial-gradient(ellipse at 82% 0%, rgba(0,185,199,.13), transparent 34rem),
+        radial-gradient(ellipse at 0% 28%, rgba(53,242,225,.055), transparent 28rem),
+        var(--bg);
+      color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(7,10,13,.82); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: .95rem; font-weight: 900; letter-spacing: .16em; }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--cyan); color: var(--cyan); border-radius: 10px; font-size: 1rem; box-shadow: 0 0 22px rgba(53,242,225,.12); }
+    .navlinks { display: flex; align-items: center; gap: 27px; color: var(--muted); font-size: .9rem; }
+    .navlinks a:hover { color: var(--cyan); }
+    .nav-cta, .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 8px; padding: 12px 17px; font-weight: 800; font-size: .9rem; border: 1px solid var(--cyan); transition: .2s ease; cursor: pointer; }
+    .nav-cta, .btn.primary { color: #041113; background: var(--cyan); }
+    .nav-cta:hover, .btn.primary:hover { background: #a4fff7; transform: translateY(-2px); }
+    .btn.secondary { color: var(--text); background: rgba(255,255,255,.025); border-color: rgba(255,255,255,.18); }
+    .btn.secondary:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+    .hero { padding: 84px 0 76px; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 58px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--cyan); text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; font-weight: 900; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 13px var(--cyan); }
+    h1 { margin: 18px 0 16px; font-size: clamp(3.2rem, 8vw, 6.4rem); line-height: .92; letter-spacing: -.075em; font-weight: 950; }
+    h1 span { color: var(--cyan); text-shadow: 0 0 36px rgba(53,242,225,.14); }
+    .hero-copy { max-width: 570px; color: #b1c0c7; font-size: 1.08rem; margin: 0 0 28px; }
+    .hero-copy strong { color: var(--text); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .micro { margin-top: 26px; display: flex; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
+    .micro span::before { content: "✦"; color: var(--cyan); margin-right: 8px; }
+    .profile-card { position: relative; min-height: 400px; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: linear-gradient(145deg, rgba(53,242,225,.08), transparent 45%), var(--panel); padding: 24px; }
+    .profile-card::before { content: ""; position: absolute; width: 250px; height: 250px; right: -70px; top: -80px; border: 1px solid rgba(53,242,225,.24); border-radius: 50%; box-shadow: 0 0 0 28px rgba(53,242,225,.025), 0 0 0 58px rgba(53,242,225,.02); }
+    .profile-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: relative; z-index: 1; }
+    .pill { font-size: .7rem; font-weight: 800; letter-spacing: .1em; color: var(--cyan); border: 1px solid var(--line); background: rgba(53,242,225,.06); border-radius: 99px; padding: 7px 10px; text-transform: uppercase; }
+    .avatar-placeholder { width: 142px; height: 142px; margin: 47px auto 24px; display: grid; place-items: center; border-radius: 50%; border: 1px dashed rgba(53,242,225,.65); color: var(--cyan); background: radial-gradient(circle, rgba(53,242,225,.12), rgba(53,242,225,.015) 68%); font-size: 2.7rem; font-weight: 950; position: relative; }
+    .avatar-placeholder::after { content: ""; position: absolute; inset: -10px; border: 1px solid rgba(53,242,225,.13); border-radius: 50%; }
+    .profile-name { text-align: center; font-size: 1.4rem; font-weight: 900; letter-spacing: .08em; margin: 0; }
+    .profile-sub { text-align: center; color: var(--muted); font-size: .87rem; margin: 4px 0 20px; }
+    .profile-stats { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid rgba(255,255,255,.08); padding-top: 17px; text-align: center; }
+    .profile-stats strong { display: block; font-size: 1.05rem; color: var(--cyan); }
+    .profile-stats span { font-size: .72rem; color: var(--muted); }
+    section { padding: 70px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin-bottom: 30px; }
+    .kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: .16em; font-weight: 900; font-size: .72rem; }
+    h2 { font-size: clamp(2rem, 4vw, 3.15rem); letter-spacing: -.055em; line-height: 1.05; margin: 8px 0 0; }
+    .section-desc { max-width: 390px; color: var(--muted); font-size: .93rem; margin: 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .info-card { background: var(--panel); border: 1px solid rgba(255,255,255,.075); border-radius: 14px; padding: 24px; }
+    .info-card h3 { margin: 0 0 10px; font-size: 1rem; }
+    .info-card p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .tags { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
+    .tag { padding: 8px 11px; border-radius: 7px; background: rgba(53,242,225,.055); color: #b7fffa; border: 1px solid rgba(53,242,225,.14); font-size: .8rem; font-weight: 750; }
+    .gallery { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 17px; }
+    .project { min-width: 0; background: var(--panel); border: 1px solid rgba(255,255,255,.08); border-radius: 13px; overflow: hidden; transition: transform .22s, border-color .22s; }
+    .project:hover { transform: translateY(-4px); border-color: rgba(53,242,225,.42); }
+    .thumb { aspect-ratio: 16 / 10; position: relative; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, #101e25, #0a0e12 70%); }
+    .thumb::before { content: ""; position: absolute; inset: 0; opacity: .5; background: repeating-linear-gradient(135deg, transparent 0 24px, rgba(53,242,225,.075) 25px 26px); }
+    .thumb::after { content: ""; position: absolute; width: 180px; height: 180px; border: 1px solid rgba(53,242,225,.18); transform: rotate(35deg); }
+    .thumb-label { position: relative; z-index: 1; text-align: center; }
+    .play { width: 48px; height: 48px; margin: 0 auto 12px; border: 1px solid rgba(53,242,225,.7); background: rgba(53,242,225,.12); color: var(--cyan); border-radius: 50%; display: grid; place-items: center; padding-left: 3px; font-size: 1rem; }
+    .thumb-label strong { display: block; font-size: .82rem; letter-spacing: .13em; }
+    .thumb-label small { display: block; color: #8ba1a9; font-size: .7rem; margin-top: 4px; }
+    .project-info { padding: 16px; }
+    .project-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+    .project h3 { margin: 0; font-size: 1rem; }
+    .project p { margin: 6px 0 14px; color: var(--muted); font-size: .82rem; }
+    .project-num { color: var(--cyan); font-weight: 900; font-size: .75rem; letter-spacing: .1em; }
+    .project-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .mini-btn { display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 8px 10px; font-size: .75rem; font-weight: 800; color: #dce7e9; cursor: pointer; background: transparent; }
+    .mini-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+    .mini-btn.watch { border-color: rgba(53,242,225,.35); color: var(--cyan); }
+    .hint { margin-top: 17px; color: var(--muted); font-size: .8rem; }
+    .contact-panel { display: grid; grid-template-columns: 1fr .9fr; gap: 35px; align-items: center; padding: clamp(24px, 5vw, 48px); border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(120deg, rgba(53,242,225,.09), transparent 60%), var(--panel); }
+    .contact-panel p { color: var(--muted); max-width: 490px; }
+    .socials { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .social { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 13px 14px; background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.09); border-radius: 8px; font-size: .84rem; }
+    .social span { color: var(--muted); font-size: .72rem; }
+    .social:hover { border-color: var(--cyan); }
+    footer { border-top: 1px solid rgba(255,255,255,.07); padding: 24px 0; color: var(--muted); font-size: .78rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    .footer-row strong { color: var(--text); letter-spacing: .1em; }
+    .modal { position: fixed; inset: 0; z-index: 99; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.82); backdrop-filter: blur(8px); }
+    .modal.open { display: flex; }
+    .modal-box { width: min(850px, 100%); background: #0b1115; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .modal-head strong { font-size: .9rem; }
+    .close { border: 0; color: var(--text); background: transparent; font-size: 1.5rem; cursor: pointer; }
+    .video-frame { aspect-ratio: 16 / 9; width: 100%; background: #050708; display: grid; place-items: center; }
+    .video-frame iframe { width: 100%; height: 100%; border: 0; }
+    .modal-placeholder { text-align: center; padding: 30px; color: var(--muted); }
+    .modal-placeholder strong { display: block; color: var(--cyan); font-size: 1.1rem; margin-bottom: 8px; }
+    .modal-placeholder p { margin: 0 auto 18px; max-width: 440px; }
+    .no-scroll { overflow: hidden; }
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+      .profile-card { min-height: 370px; }
+      .gallery { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .contact-panel { grid-template-columns: 1fr; gap: 18px; }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(var(--max), calc(100% - 28px)); }
+      .nav { min-height: 66px; }
+      .navlinks { gap: 13px; font-size: .78rem; }
+      .navlinks a:nth-child(2) { display: none; }
+      .nav-cta { display: none; }
+      .hero { padding: 60px 0 48px; }
+      h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
+      section { padding: 52px 0; }
+      .gallery { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .socials { grid-template-columns: 1fr; }
+      .profile-card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Jumpster beranda"><span class="brand-mark">J</span><span>JUMPSTER<span style="color:var(--cyan)">.</span></span></a>
+      <nav class="navlinks" aria-label="Navigasi utama">
+        <a href="#about">Tentang</a><a href="#works">Karya</a><a href="#contact">Kontak</a>
+      </nav>
+      <a class="nav-cta" href="#works">Lihat Karya <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Gaming Video Editor</div>
+          <h1>EDIT.<br><span>PLAY.</span><br>REPEAT.</h1>
+          <p class="hero-copy"><strong>Jumpster</strong> — Gaming video editor, specialist Mobile Legends. Editing with <strong>CapCut</strong> &amp; <strong>Alight Motion</strong>.</p>
+          <div class="actions">
+            <a class="btn primary" href="#works">Jelajahi Karya <span aria-hidden="true">↘</span></a>
+            <a class="btn secondary" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">YouTube Channel ↗</a>
+          </div>
+          <div class="micro"><span>Mobile Legends</span><span>CapCut</span><span>Alight Motion</span></div>
+        </div>
+        <aside class="profile-card" aria-label="Kartu profil Jumpster">
+          <div class="profile-top"><span class="pill">Creator Profile</span><span class="pill">ID / MLBB</span></div>
+          <div class="avatar-placeholder" aria-label="Placeholder avatar">J<span style="font-size:.7em">✦</span></div>
+          <p class="profile-name">JUMPSTER</p>
+          <p class="profile-sub">Gaming edits • Mobile Legends</p>
+          <div class="profile-stats">
+            <div><strong>06</strong><span>Project slots</span></div>
+            <div><strong>02</strong><span>Editing apps</span></div>
+            <div><strong>∞</strong><span>Creative plays</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">01 / About</div><h2>Built for the<br>highlight moment.</h2></div>
+          <p class="section-desc">Portfolio personal untuk menampilkan editing gaming, momen clutch, montage, dan visual Mobile Legends dengan identitas gelap-neon.</p>
+        </div>
+        <div class="about-grid">
+          <article class="info-card">
+            <h3>✦ Tentang Jumpster</h3>
+            <p>Gaming video editor yang berfokus pada konten Mobile Legends. Mengutamakan pacing, beat sync, transisi, dan impact visual agar setiap momen terasa lebih cinematic.</p>
+          </article>
+          <article class="info-card">
+            <h3>⌁ Editing toolkit</h3>
+            <p>Workflow editing menggunakan aplikasi mobile yang biasa dipakai untuk membuat montage dan short-form gaming content.</p>
+            <div class="tags"><span class="tag">CapCut</span><span class="tag">Alight Motion</span><span class="tag">MLBB</span><span class="tag">Montage</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="works">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">02 / Selected works</div><h2>Featured edits<span style="color:var(--cyan)">.</span></h2></div>
+          <p class="section-desc">Enam slot karya siap diisi. Tambahkan URL video YouTube dan thumbnail milikmu di bagian konfigurasi pada file HTML.</p>
+        </div>
+        <div class="gallery" id="gallery">
+          <article class="project" data-title="MLBB Montage 01" data-video="">
+            <div class="thumb"><div class="thumb-label"><div class="play">▶</div><strong>PROJECT 01</strong><small>THUMBNAIL PLACEHOLDER</small></div></div>
+            <div class="project-info"><div class="project-top"><h3>MLBB Montage 01</h3><span class="project-num">01</span></div><p>Mobile Legends • Highlight edit</p><div class="project-actions"><button class="mini-btn preview-btn" type="button">Preview di web ↗</button><a class="mini-btn watch watch-btn" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">Tonton di YouTube ↗</a></div></div>
+          </article>
+          <article class="project" data-title="Beat Sync Edit" data-video="">
+            <div class="thumb"><div class="thumb-label"><div class="play">▶</div><strong>PROJECT 02</strong><small>THUMBNAIL PLACEHOLDER</small></div></div>
+            <div class="project-info"><div class="project-top"><h3>Beat Sync Edit</h3><span class="project-num">02</span></div><p>Mobile Legends • Beat sync</p><div class="project-actions"><button class="mini-btn preview-btn" type="button">Preview di web ↗</button><a class="mini-btn watch watch-btn" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">Tonton di YouTube ↗</a></div></div>
+          </article>
+          <article class="project" data-title="Clutch Moments" data-video="">
+            <div class="thumb"><div class="thumb-label"><div class="play">▶</div><strong>PROJECT 03</strong><small>THUMBNAIL PLACEHOLDER</small></div></div>
+            <div class="project-info"><div class="project-top"><h3>Clutch Moments</h3><span class="project-num">03</span></div><p>Mobile Legends • Clutch plays</p><div class="project-actions"><button class="mini-btn preview-btn" type="button">Preview di web ↗</button><a class="mini-btn watch watch-btn" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">Tonton di YouTube ↗</a></div></div>
+          </article>
+          <article class="project" data-title="Velocity Montage" data-video="">
+            <div class="thumb"><div class="thumb-label"><div class="play">▶</div><strong>PROJECT 04</strong><small>THUMBNAIL PLACEHOLDER</small></div></div>
+            <div class="project-info"><div class="project-top"><h3>Velocity Montage</h3><span class="project-num">04</span></div><p>Mobile Legends • Velocity</p><div class="project-actions"><button class="mini-btn preview-btn" type="button">Preview di web ↗</button><a class="mini-btn watch watch-btn" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">Tonton di YouTube ↗</a></div></div>
+          </article>
+          <article class="project" data-title="Skill Showcase" data-video="">
+            <div class="thumb"><div class="thumb-label"><div class="play">▶</div><strong>PROJECT 05</strong><small>THUMBNAIL PLACEHOLDER</small></div></div>
+            <div class="project-info"><div class="project-top"><h3>Skill Showcase</h3><span class="project-num">05</span></div><p>Mobile Legends • Hero showcase</p><div class="project-actions"><button class="mini-btn preview-btn" type="button">Preview di web ↗</button><a class="mini-btn watch watch-btn" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">Tonton di YouTube ↗</a></div></div>
+          </article>
+          <article class="project" data-title="Latest Project" data-video="">
+            <div class="thumb"><div class="thumb-label"><div class="play">▶</div><strong>PROJECT 06</strong><small>THUMBNAIL PLACEHOLDER</small></div></div>
+            <div class="project-info"><div class="project-top"><h3>Latest Project</h3><span class="project-num">06</span></div><p>Mobile Legends • New release</p><div class="project-actions"><button class="mini-btn preview-btn" type="button">Preview di web ↗</button><a class="mini-btn watch watch-btn" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">Tonton di YouTube ↗</a></div></div>
+          </article>
+        </div>
+        <p class="hint">Catatan: tombol preview akan menampilkan video di pop-up setelah URL video ditambahkan. Untuk sekarang, tombol YouTube mengarah ke channel Jumpster.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-panel">
+          <div>
+            <div class="kicker">03 / Contact</div>
+            <h2>Let’s make<br>the next highlight.</h2>
+            <p>Punya project, collab, atau butuh gaming edit? Hubungi Jumpster lewat platform berikut.</p>
+            <a class="btn primary" href="https://wa.me/6282274477163" target="_blank" rel="noopener noreferrer">Chat via WhatsApp ↗</a>
+          </div>
+          <div class="socials">
+            <a class="social" href="https://instagram.com/jumpsterrrr" target="_blank" rel="noopener noreferrer"><div><strong>Instagram</strong><br><span>@jumpsterrrr</span></div><b>↗</b></a>
+            <a class="social" href="https://www.tiktok.com/@jumpsterr" target="_blank" rel="noopener noreferrer"><div><strong>TikTok</strong><br><span>@jumpsterr</span></div><b>↗</b></a>
+            <a class="social" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer"><div><strong>YouTube</strong><br><span>@jumpster</span></div><b>↗</b></a>
+            <a class="social" href="mailto:jumpsterxyz@gmail.com"><div><strong>Email</strong><br><span>jumpsterxyz@gmail.com</span></div><b>↗</b></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-row"><span><strong>JUMPSTER.</strong> Gaming Video Editor</span><span>© <span id="year"></span> Jumpster. Built for the next highlight.</span></div></footer>
+
+  <div class="modal" id="previewModal" role="dialog" aria-modal="true" aria-label="Preview karya">
+    <div class="modal-box">
+      <div class="modal-head"><strong id="modalTitle">Project preview</strong><button class="close" id="closeModal" aria-label="Tutup preview">×</button></div>
+      <div class="video-frame" id="videoFrame"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== KONFIGURASI KARYA =====
+    // Isi videoUrl dengan URL YouTube setiap project, contoh:
+    // videoUrl: "https://www.youtube.com/watch?v=VIDEO_ID"
+    // Isi thumbnailUrl dengan URL gambar thumbnail (opsional).
+    // Kosongkan string jika belum ingin memasang video/gambar.
+    const projects = [
+      { title: "MLBB Montage 01", videoUrl: "", thumbnailUrl: "" },
+      { title: "Beat Sync Edit", videoUrl: "", thumbnailUrl: "" },
+      { title: "Clutch Moments", videoUrl: "", thumbnailUrl: "" },
+      { title: "Velocity Montage", videoUrl: "", thumbnailUrl: "" },
+      { title: "Skill Showcase", videoUrl: "", thumbnailUrl: "" },
+      { title: "Latest Project", videoUrl: "", thumbnailUrl: "" }
+    ];
+
+    const cards = [...document.querySelectorAll(".project")];
+    const modal = document.getElementById("previewModal");
+    const videoFrame = document.getElementById("videoFrame");
+    const modalTitle = document.getElementById("modalTitle");
+
+    function getYouTubeId(url) {
+      if (!url) return "";
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes("youtu.be")) return u.pathname.slice(1).split("/")[0];
+        if (u.searchParams.get("v")) return u.searchParams.get("v");
+        const parts = u.pathname.split("/").filter(Boolean);
+        const marker = parts.findIndex(p => ["embed", "shorts", "live"].includes(p));
+        if (marker >= 0 && parts[marker + 1]) return parts[marker + 1];
+      } catch (e) {}
+      return "";
+    }
+
+    projects.forEach((project, i) => {
+      const card = cards[i];
+      if (!card) return;
+      card.dataset.video = project.videoUrl || "";
+      card.dataset.title = project.title || card.dataset.title;
+      const title = card.querySelector("h3");
+      const label = card.querySelector(".thumb-label strong");
+      if (title) title.textContent = project.title || title.textContent;
+      if (label) label.textContent = `PROJECT ${String(i + 1).padStart(2, "0")}`;
+      if (project.thumbnailUrl) {
+        const thumb = card.querySelector(".thumb");
+        thumb.style.backgroundImage = `linear-gradient(0deg, rgba(4,8,10,.15), rgba(4,8,10,.15)), url("${project.thumbnailUrl}")`;
+        thumb.style.backgroundSize = "cover";
+        thumb.style.backgroundPosition = "center";
+        const placeholder = thumb.querySelector(".thumb-label");
+        if (placeholder) placeholder.style.display = "none";
+      }
+      const watch = card.querySelector(".watch-btn");
+      if (watch && project.videoUrl) watch.href = project.videoUrl;
+    });
+
+    function openPreview(card) {
+      const title = card.dataset.title || "Project preview";
+      const id = getYouTubeId(card.dataset.video || "");
+      modalTitle.textContent = title;
+      videoFrame.innerHTML = "";
+      if (id) {
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+        iframe.title = title;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        videoFrame.appendChild(iframe);
+      } else {
+        const box = document.createElement("div");
+        box.className = "modal-placeholder";
+        box.innerHTML = `<strong>Preview belum tersedia</strong><p>Tambahkan URL video YouTube pada bagian <b>Konfigurasi Karya</b> di file HTML untuk mengaktifkan preview di website.</p><a class="btn secondary" href="https://youtube.com/@jumpster" target="_blank" rel="noopener noreferrer">Buka channel Jumpster ↗</a>`;
+        videoFrame.appendChild(box);
+      }
+      modal.classList.add("open");
+      document.body.classList.add("no-scroll");
+    }
+    cards.forEach(card => card.querySelector(".preview-btn").addEventListener("click", () => openPreview(card)));
+    function closePreview() {
+      modal.classList.remove("open");
+      document.body.classList.remove("no-scroll");
+      videoFrame.innerHTML = "";
+    }
+    document.getElementById("closeModal").addEventListener("click", closePreview);
+    modal.addEventListener("click", e => { if (e.target === modal) closePreview(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closePreview(); });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
